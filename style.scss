@@ -1,0 +1,132 @@
+// Variables - Defining reusable values
+$background-color: #D8DA3D;
+$text-color: #80007E;
+$sidebar-width: 200px;
+$container-max-width: 1200px;
+$border-width: 2px;
+$border-color-black: black;
+$border-color-red: red;
+$border-color-gray: gray;
+$footer-font-family: 'Brush Script MT', cursive;
+
+// Mixins - Reusable border styling
+@mixin border-style($style, $color) {
+  border: $border-width $style $color;
+}
+
+// Extends - Common paragraph styles
+%styled-paragraph {
+  width: auto;
+  margin: 10px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  color: black;
+}
+
+// Body styling
+body {
+  background-color: $background-color;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// Main container with shorthand padding
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: flex;
+}
+
+// Sidebar with nested links
+.sidebar {
+  width: $sidebar-width;
+  margin-right: 20px;
+
+  a {
+    display: block;
+    background-color: white;
+    padding: 8px;
+    margin: 8px 0;
+    color: $text-color;
+    text-decoration: none;
+    border-right: 20px solid $border-color-black;
+
+    &:nth-child(1) { border-right-color: #FF7F00; }
+    &:nth-child(2) { border-right-color: #0000FF; }
+    &:nth-child(3) { border-right-color: #FF7F00; }
+    &:nth-child(4) { border-right-color: #0000FF; }
+  }
+}
+
+// Content area with nested elements
+.content {
+  flex: 1;
+  color: $text-color;
+  text-align: justify;
+
+  h1 {
+    color: $text-color;
+  }
+
+  p {
+    // white-space: normal;
+    padding: 4px;
+    color: $text-color;
+  }
+
+  .black-dashed {
+    @extend %styled-paragraph;
+    @include border-style(dashed, $border-color-black);
+    text-align: left;
+  }
+
+  .red-dashed {
+    @extend %styled-paragraph;
+    @include border-style(dashed, $border-color-red);
+    text-align: right;
+    font-style: italic;
+  }
+
+  .gray-dotted {
+    @extend %styled-paragraph;
+    @include border-style(dotted, $border-color-gray);
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+// Footer styling
+.footer {
+  margin-top: 50px;
+  border-top: 1px dashed $border-color-black;
+  padding-top: 20px;
+  color: $text-color;
+  font-style: italic;
+
+  p {
+    display: inline;
+    margin: 0;
+    font-family: $footer-font-family;
+  }
+}
+
+// Bounce animation keyframes
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+// Apply animation on hover
+.content .black-dashed:hover {
+  animation: bounce 1s;
+}
